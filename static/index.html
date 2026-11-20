@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDF Local</title>
+  <link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/theme.js"></script>
+</head>
+<body>
+  <header class="sticky top-0 z-10 flex items-center gap-3 border-b border-line bg-surface px-4 py-2.5">
+    <a class="flex items-center gap-2 text-lg font-bold no-underline" href="#">
+      <img src="/static/icon.svg" alt="" width="28" height="28">
+      <span>PDF Local</span>
+    </a>
+    <span class="hidden items-center gap-1 rounded-full bg-ok-soft px-2.5 py-0.5 text-xs font-semibold text-ok sm:inline-flex" data-i18n-title="badgeTitle" title="Ningún archivo sale de tu computadora">
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>
+      <span data-i18n="badge">100 % local</span>
+    </span>
+    <div class="ml-auto flex gap-2">
+      <button id="langBtn" class="grid size-[38px] place-items-center rounded-[10px] border border-line bg-surface-2 text-xs font-bold tracking-wide text-ink" type="button" data-i18n-title="lang" aria-label="Switch to English" title="Switch to English">EN</button>
+      <button id="themeBtn" class="grid size-[38px] place-items-center rounded-[10px] border border-line bg-surface-2 text-ink" type="button" data-i18n-title="theme" aria-label="Cambiar tema" title="Cambiar tema">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A5.5 5.5 0 0 1 13.4 3.1C13 3 12.5 3 12 3z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="app" class="mx-auto w-full max-w-[1100px] flex-1 px-4 pt-4 pb-8 sm:pt-6 sm:pb-10">
+    <section id="home">
+      <div>
+        <h1 data-i18n="heroTitle">Herramientas PDF en tu computadora</h1>
+        <p class="mt-1.5 max-w-[680px] text-muted" data-i18n="heroText">Une, divide, comprime, convierte y protege tus PDF. LOCAL</p>
+      </div>
+      <div id="toolGroups"></div>
+    </section>
+
+    <section id="tool" hidden>
+      <a href="#" class="mb-3.5 inline-block text-muted no-underline hover:text-ink" data-i18n="back">← Todas las herramientas</a>
+      <div class="mb-3.5 flex items-center gap-3.5">
+        <span class="tool-icon size-12" id="toolIcon"></span>
+        <div>
+          <h1 id="toolTitle"></h1>
+          <p id="toolDesc" class="text-muted"></p>
+        </div>
+      </div>
+      <div id="toolNotice"></div>
+
+      <label class="dropzone" id="dropzone">
+        <input type="file" id="fileInput" hidden>
+        <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path fill="currentColor" d="M19 15v4H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4h-2zM11 4.8V16h2V4.8l3.6 3.6L18 7l-6-6-6 6 1.4 1.4L11 4.8z"/></svg>
+        <strong id="dropLabel">Elige archivos</strong>
+        <span data-i18n="orDrag">o arrástralos aquí</span>
+      </label>
+
+      <div id="workArea" hidden>
+        <div class="work-toolbar mt-3.5 mb-2.5 flex flex-wrap items-center gap-2" id="workToolbar"></div>
+        <div id="items" class="items"></div>
+        <form id="options" class="options" autocomplete="off"></form>
+        <div class="mt-4 flex flex-wrap justify-end gap-2.5">
+          <button type="button" class="btn ghost" id="resetBtn" data-i18n="reset">Empezar de nuevo</button>
+          <button type="button" class="btn primary" id="runBtn">Procesar</button>
+        </div>
+        <div id="result" class="mt-4" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="busy" class="fixed inset-0 z-[200] grid place-items-center bg-black/35" hidden>
+    <div class="flex items-center gap-3 rounded-xl bg-surface px-6 py-4 shadow-card"><span class="spinner"></span><span id="busyText">Procesando…</span></div>
+  </div>
+
+  <footer class="px-4 pt-3.5 pb-5 text-center text-xs text-muted" data-i18n="footer">PyMuPDF · Servidor solo en 127.0.0.1</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

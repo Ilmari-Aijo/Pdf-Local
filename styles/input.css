@@ -1,0 +1,173 @@
+/* Fuente de estilos de PDF Local (Tailwind CSS v4).
+   Compilar con build-css.bat -> genera static/app.css. No editar static/app.css a mano. */
+@import "tailwindcss" source(none);
+@source "../static/index.html";
+@source "../static/app.js";
+
+/* ---------- tokens de color (claro / oscuro) ---------- */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --text: #1b1f24;
+  --muted: #5f6b7a;
+  --border: #dde2e8;
+  --accent: #e5484d;
+  --accent-hover: #cf3a3f;
+  --accent-soft: #fdecec;
+  --ok: #1f8a4c;
+  --ok-soft: #e6f6ec;
+  --warn: #a35b00;
+  --warn-soft: #fff4e0;
+  --err: #c62828;
+  --err-soft: #fdeaea;
+  --sel: #2563eb;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 2px 8px rgba(16, 24, 40, .06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111317; --surface: #1a1d23; --surface-2: #23272f; --text: #e8eaed; --muted: #9aa4b2;
+    --border: #2f343d; --accent: #f2555a; --accent-hover: #ff6b70; --accent-soft: #3a1d20;
+    --ok: #4cc683; --ok-soft: #15301f; --warn: #f0b354; --warn-soft: #33270f; --err: #ff7b7b;
+    --err-soft: #3a1b1b; --sel: #6b9bff; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 2px 10px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111317; --surface: #1a1d23; --surface-2: #23272f; --text: #e8eaed; --muted: #9aa4b2;
+  --border: #2f343d; --accent: #f2555a; --accent-hover: #ff6b70; --accent-soft: #3a1d20;
+  --ok: #4cc683; --ok-soft: #15301f; --warn: #f0b354; --warn-soft: #33270f; --err: #ff7b7b;
+  --err-soft: #3a1b1b; --sel: #6b9bff; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 2px 10px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+/* Los tokens se exponen como colores de Tailwind: bg-surface, text-muted, border-line… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-err: var(--err);
+  --color-err-soft: var(--err-soft);
+  --color-sel: var(--sel);
+  --shadow-card: var(--shadow);
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-bg text-ink font-sans text-[15px] leading-normal min-h-screen flex flex-col; }
+  h1 { @apply text-2xl font-bold leading-tight mb-1 max-sm:text-xl; }
+  h2 { @apply text-xs font-semibold uppercase tracking-wider text-muted mt-7 mb-3; }
+  input[type=text], input[type=password], input[type=number], select {
+    @apply w-full min-h-10 rounded-lg border border-line bg-surface-2 px-2.5 py-2 text-ink;
+  }
+  input[type=color] { @apply h-10 w-14 rounded-lg border border-line bg-surface-2 p-1; }
+  input[type=range] { @apply w-full accent-accent; }
+  input:focus, select:focus { @apply outline-2 outline-offset-1 outline-accent; }
+  button { @apply cursor-pointer; }
+}
+
+@layer components {
+  /* Inicio */
+  .tool-grid { @apply grid grid-cols-1 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(230px,1fr))]; }
+  .tool-card {
+    @apply flex items-start gap-3 rounded-xl border border-line bg-surface p-3.5 no-underline shadow-card
+      transition hover:-translate-y-px hover:border-accent focus-visible:border-accent focus-visible:outline-none;
+  }
+  .tool-card strong { @apply block; }
+  .tool-card .d { @apply text-sm text-muted; }
+  .tool-icon { @apply grid size-10 flex-none place-items-center rounded-[10px] bg-accent-soft text-accent; }
+  .tool-icon svg { @apply size-[22px]; }
+  .tag-ext { @apply ml-1 rounded-md bg-warn-soft px-1.5 py-px text-[.7rem] font-semibold text-warn; }
+
+  /* Avisos */
+  .notice { @apply mb-3.5 rounded-[10px] px-3.5 py-2.5 text-sm; }
+  .notice.warn { @apply border-l-4 border-warn bg-warn-soft; }
+  .notice.info { @apply border-l-4 border-muted bg-surface-2; }
+  .notice code { @apply rounded-[5px] bg-surface px-1.5 py-px text-[.85em]; }
+
+  /* Zona para soltar archivos */
+  .dropzone {
+    @apply flex min-h-48 cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed
+      border-line bg-surface p-6 text-center text-muted transition-colors hover:border-accent hover:bg-accent-soft;
+  }
+  .dropzone strong { @apply text-[1.05rem] text-ink; }
+  .dropzone.over { @apply border-accent bg-accent-soft; }
+  .dropzone.compact { @apply min-h-0 flex-row gap-2.5 p-3; }
+  .dropzone.compact svg { @apply size-[22px]; }
+
+  /* Tarjetas de archivos y páginas */
+  .work-toolbar .info { @apply mr-auto text-sm text-muted; }
+  .items { @apply grid grid-cols-[repeat(auto-fill,minmax(104px,1fr))] gap-2 sm:grid-cols-[repeat(auto-fill,minmax(140px,1fr))] sm:gap-3; }
+  .items.single { @apply grid-cols-1; }
+  .card {
+    @apply relative flex cursor-grab touch-pan-y flex-col gap-1.5 rounded-[10px] border border-line bg-surface p-2 shadow-card select-none;
+  }
+  .card .thumb { @apply grid h-[120px] place-items-center overflow-hidden rounded-md bg-surface-2 sm:h-[170px]; }
+  .card .thumb img { @apply pointer-events-none max-h-full max-w-full bg-white ring-1 ring-line transition-transform; }
+  .card.static { @apply cursor-default flex-row items-center gap-3; }
+  .card.static .thumb { @apply h-[84px] w-16 flex-none; }
+  .card .meta { @apply flex min-h-7 items-center gap-1 text-[.8rem]; }
+  .card .meta .name { @apply flex-1 truncate; }
+  .card .num { @apply flex-1 font-bold; }
+  .card.selectable { @apply cursor-pointer; }
+  .card.selected { @apply border-sel ring-2 ring-sel; }
+  .card.selected::after {
+    content: "✓";
+    @apply absolute top-1.5 right-1.5 grid size-6 place-items-center rounded-full bg-sel text-[.8rem] font-bold text-white;
+  }
+  .card.placeholder { @apply opacity-35; }
+  .card.ghost { @apply pointer-events-none fixed z-[100] rotate-2 opacity-90 shadow-2xl; }
+  .mini {
+    @apply h-7 min-w-7 rounded-[7px] border border-line bg-surface-2 px-1.5 text-sm leading-none text-ink
+      hover:border-accent hover:text-accent;
+  }
+  .insert-mark {
+    @apply flex min-h-[120px] flex-col items-center justify-center gap-1 rounded-[10px] border-2 border-dashed
+      border-accent bg-accent-soft p-2 text-center text-sm font-semibold text-accent;
+  }
+  .insert-mark span { @apply text-3xl leading-none; }
+
+  /* Opciones */
+  .options {
+    @apply mt-4 grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-x-4 gap-y-3.5 rounded-xl border border-line bg-surface p-4
+      empty:hidden;
+  }
+  .field { @apply flex flex-col gap-1.5 text-sm; }
+  .field > span { @apply font-semibold; }
+  .field small { @apply text-muted; }
+  .field.wide { @apply col-span-full; }
+  .check { @apply flex cursor-pointer items-center gap-2 text-sm; }
+  .seg { @apply flex flex-wrap gap-1.5; }
+  .seg label { @apply cursor-pointer; }
+  .seg input { @apply pointer-events-none absolute opacity-0; }
+  .seg span { @apply inline-block rounded-lg border border-line bg-surface-2 px-3 py-1.5 text-sm font-medium; }
+  .seg input:checked + span { @apply border-accent bg-accent-soft font-semibold text-accent; }
+  .seg input:focus-visible + span { @apply outline-2 outline-accent; }
+
+  /* Botones */
+  .btn { @apply rounded-[10px] border border-transparent px-5 py-2.5 font-semibold max-sm:flex-1; }
+  .btn.primary { @apply bg-accent text-white hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn.ghost { @apply border-line bg-transparent text-ink; }
+  .btn.small { @apply px-3 py-1.5 text-sm max-sm:flex-none; }
+
+  /* Resultado */
+  .res { @apply flex flex-wrap items-center gap-3 rounded-[10px] px-4 py-3.5; }
+  .res.ok { @apply border-l-4 border-ok bg-ok-soft; }
+  .res.err { @apply border-l-4 border-err bg-err-soft; }
+  .res .txt { @apply min-w-[200px] flex-1; }
+  .res a.btn { @apply no-underline; }
+
+  .spinner { @apply inline-block size-[22px] animate-spin rounded-full border-3 border-line border-t-accent; }
+}
