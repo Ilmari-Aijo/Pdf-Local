@@ -85,4 +85,17 @@ Colors come from CSS variables exposed as Tailwind colors (`bg-surface`, `text-m
 
 ## License
 
-This project depends on [PyMuPDF](https://pymupdf.readthedocs.io/), which is licensed under the GNU AGPL v3 (or a commercial license from Artifex). If you distribute this project, its license must be compatible with the AGPL.
+PDF Local is free software licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+You may use, copy, modify and redistribute it. If you distribute a modified version, or let other people use a modified version over a network, you must make its source code available under the same license.
+
+The AGPL is required because the app uses [PyMuPDF](https://pymupdf.readthedocs.io/), which is licensed under the AGPL v3 (or a commercial license from Artifex). The other dependencies use permissive licenses that are compatible with it:
+
+| Dependency | License |
+|---|---|
+| PyMuPDF | AGPL-3.0 |
+| pdf2docx | MIT |
+| Flask | BSD-3-Clause |
+| Pillow | MIT-CMU |
+| pywin32 | PSF |
+| Tailwind CSS (build tool; its notice is kept in `static/app.css`) | MIT |
